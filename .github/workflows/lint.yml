@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19
-      - name: Install eslint and Plugin
-        run: |
-          npm i -g eslint
-          npm i @typescript-eslint/eslint-plugin
-      - name: Run eslint
-        run: eslint . --ignore-path=.gitignore
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install Dependencies
+        run: pnpm i
+      - name: Run lint
+        run: pnpm run lint
