@@ -10,13 +10,13 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: Setup node.js 19
+        uses: actions/setup-node@v3
         with:
           node-version: 19
-      - run: npm i eslint
-      - uses: sibiraj-s/action-eslint@v2
-        with:
-          eslint-args: '--ignore-path=.gitignore --quiet'
-          extensions: 'js, ts'
-          annotations: true
+      - name: Install eslint
+        run: npm i eslint
+      - name: Run eslint
+        run: eslint . --ignore-path=.gitignore
