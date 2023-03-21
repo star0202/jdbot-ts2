@@ -14,8 +14,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 19
-      - run: npm i pnpm
-      - run: pnpm i
+      - run: npm i eslint
       - uses: sibiraj-s/action-eslint@v2
         with:
           eslint-args: '--ignore-path=.gitignore --quiet'
