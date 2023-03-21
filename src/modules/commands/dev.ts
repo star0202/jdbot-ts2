@@ -11,7 +11,7 @@ import {
 } from 'discord.js'
 import path from 'path'
 
-class DevExtension extends Extension {
+class DevCommands extends Extension {
   @ownerOnly
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
@@ -65,5 +65,5 @@ class DevExtension extends Extension {
 }
 
 export const setup = async () => {
-  return new DevExtension()
+  return new DevCommands()
 }
