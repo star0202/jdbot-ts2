@@ -1,5 +1,7 @@
 export const COLORS = {
   RED: 0xff0000,
+  DARK_RED: 0x8b0000,
+  YELLOW: 0xffff00,
 }
 
 export const CENSOR = [
