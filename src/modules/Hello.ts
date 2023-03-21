@@ -4,7 +4,7 @@ import { ApplicationCommandType, ChatInputCommandInteraction } from 'discord.js'
 class HelloExtension extends Extension {
   @listener({ event: 'ready' })
   async ready() {
-    this.logger.info(`Logged in as ${this.client.user!.tag}`)
+    this.logger.info(`Logged in as ${this.client.user?.tag}`)
     await this.commandClient.fetchOwners()
   }
 

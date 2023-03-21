@@ -13,7 +13,7 @@ const start = async () => {
 
   await client.login(config.token)
 
-  await cts.getApplicationCommandsExtension()!.sync()
+  await cts.getApplicationCommandsExtension()?.sync()
 }
 
 start().then()
