@@ -17,6 +17,6 @@ jobs:
         with:
           node-version: 19
       - name: Install eslint
-        run: npm i eslint
+        run: npm i -g eslint
       - name: Run eslint
         run: eslint . --ignore-path=.gitignore
