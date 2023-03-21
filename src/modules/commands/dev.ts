@@ -53,6 +53,7 @@ class DevCommands extends Extension {
       type: ApplicationCommandOptionType.String,
       name: 'module',
       description: 'Module name',
+      required: true,
     })
     name: string
   ) {
