@@ -3,7 +3,7 @@ import { CustomizedCommandClient } from './structures'
 import { Client } from 'discord.js'
 
 const client = new Client({
-  intents: ['Guilds', 'DirectMessages'],
+  intents: ['MessageContent', 'Guilds', 'GuildMessages'],
 })
 
 const cts = new CustomizedCommandClient(client)
