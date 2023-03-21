@@ -1,5 +1,14 @@
-import { Extension, applicationCommand, ownerOnly } from '@pikokr/command.ts'
-import { ApplicationCommandType, ChatInputCommandInteraction } from 'discord.js'
+import {
+  Extension,
+  applicationCommand,
+  option,
+  ownerOnly,
+} from '@pikokr/command.ts'
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+  ChatInputCommandInteraction,
+} from 'discord.js'
 import path from 'path'
 
 class DevExtension extends Extension {
@@ -7,7 +16,7 @@ class DevExtension extends Extension {
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
     name: 'reload',
-    description: 'reload modules',
+    description: 'Reload all modules',
   })
   async reload(i: ChatInputCommandInteraction) {
     await i.deferReply()
@@ -23,13 +32,35 @@ class DevExtension extends Extension {
     for (const x of data) {
       if (x.result) success++
       else fail++
-      await i.editReply(
-        '```\n' +
-          `✅ ${success} ❌ ${fail}\n` +
-          data.map((x) => `${x.result ? '✅' : '❌'} ${x.path}`).join('\n') +
-          '```'
-      )
     }
+    await i.editReply(
+      '```\n' +
+        `✅ ${success} ❌ ${fail}\n` +
+        data.map((x) => `${x.result ? '✅' : '❌'} ${x.path}`).join('\n') +
+        '```'
+    )
+  }
+
+  @ownerOnly
+  @applicationCommand({
+    type: ApplicationCommandType.ChatInput,
+    name: 'load',
+    description: 'Load a module',
+  })
+  async load(
+    i: ChatInputCommandInteraction,
+    @option({
+      type: ApplicationCommandOptionType.String,
+      name: 'module',
+      description: 'Module name',
+    })
+    name: string
+  ) {
+    await i.deferReply()
+    await this.commandClient.registry.loadModulesAtPath(
+      path.join(__dirname, `${name}.ts`)
+    )
+    await i.editReply('```\n' + `✅ ${name}.ts` + '\n```')
   }
 }
 
