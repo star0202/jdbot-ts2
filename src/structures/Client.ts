@@ -1,4 +1,4 @@
-import { config } from '../config'
+import { config } from '#config'
 import { CommandClient } from '@pikokr/command.ts'
 import path from 'path'
 
