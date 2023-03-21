@@ -17,6 +17,9 @@ class MessageEvents extends Extension {
       if (censored) {
         const embed = new EmbedBuilder()
           .setTitle('메세지 검열됨')
+          .setDescription(
+            '분류, 감지된 단어, 또는 검열이 잘못되었다고 생각하시면 문의 바랍니다.'
+          )
           .setColor(COLORS['DARK_RED'])
           .setAuthor({
             name: msg.author.tag,
@@ -35,8 +38,9 @@ class MessageEvents extends Extension {
               inline: true,
             },
             {
-              name: '검열 사유',
-              value: '||```' + censor.name + '```||',
+              name: '감지된 단어',
+              value:
+                '||```' + `${censor.name}(분류: ${censor.ruleType})` + '```||',
               inline: true,
             }
           )
