@@ -11,9 +11,12 @@ class MessageEvents extends Extension {
     const content = msg.content
       .normalize('NFC')
       .replace(/[!?@#$%^&*():;+-=~{}<>_[\]|\\"',./`₩\d]/g, '')
+
     if (!content) return
+
     for (const censor of CENSOR) {
       const censored = content.match(censor.regex)
+
       if (censored) {
         const embed = new EmbedBuilder()
           .setTitle('메세지 검열됨')
@@ -44,26 +47,32 @@ class MessageEvents extends Extension {
               inline: true,
             }
           )
+
         await msg.reply({
           embeds: [embed],
         })
         await msg.delete()
+
         const channel = msg.client.channels.cache.get(
           config.message_log_channel
         ) as TextBasedChannel
         await channel.send({
           embeds: [embed],
         })
+
         return
       }
     }
   }
+
   @listener({ event: 'messageUpdate' })
   async messageUpdate(before: Message, after: Message) {
     if (isMessageInvalid(before) && isMessageInvalid(after)) return
+
     const channel = after.client.channels.cache.get(
       config.message_log_channel
     ) as TextBasedChannel
+
     const embed = new EmbedBuilder()
       .setTitle('메세지 수정됨')
       .setColor(COLORS['YELLOW'])
@@ -77,15 +86,20 @@ class MessageEvents extends Extension {
         { name: '수정 전', value: '```' + before.content + '```' },
         { name: '수정 후', value: '```' + after.content + '```' }
       )
+
     await channel.send({ embeds: [embed] })
+
     this.messageCreate(after)
   }
+
   @listener({ event: 'messageDelete' })
   async messageDelete(msg: Message) {
     if (isMessageInvalid(msg)) return
+
     const channel = msg.client.channels.cache.get(
       config.message_log_channel
     ) as TextBasedChannel
+
     const embed = new EmbedBuilder()
       .setTitle('메세지 삭제됨')
       .setColor(COLORS['RED'])
@@ -98,6 +112,7 @@ class MessageEvents extends Extension {
         { name: '채널', value: `<#${msg.channelId}>`, inline: true },
         { name: '내용', value: '```' + msg.content + '```' }
       )
+
     await channel.send({ embeds: [embed] })
   }
 }

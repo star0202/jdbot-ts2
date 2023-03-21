@@ -22,6 +22,7 @@ class DevCommands extends Extension {
   })
   async reload(i: ChatInputCommandInteraction) {
     await i.deferReply()
+
     const data = await this.commandClient.registry.reloadModules().then((r) =>
       r.map((x) => ({
         path: path.basename(x.file),
@@ -29,12 +30,14 @@ class DevCommands extends Extension {
         error: x.error?.message.normalize(),
       }))
     )
+
     let success = 0,
       fail = 0
     for (const x of data) {
       if (x.result) success++
       else fail++
     }
+
     await i.editReply(
       '```\n' +
         `✅ ${success} ❌ ${fail}\n` +
@@ -61,9 +64,11 @@ class DevCommands extends Extension {
     name: string
   ) {
     await i.deferReply()
+
     await this.commandClient.registry.loadModulesAtPath(
       path.join(__dirname, `${name}.ts`)
     )
+
     await i.editReply('```\n' + `✅ ${name}.ts` + '\n```')
   }
 }
