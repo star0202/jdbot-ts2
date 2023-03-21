@@ -1,12 +1,15 @@
 import { config } from '#config'
 import { CustomizedCommandClient } from '#structures'
+import { setupLogger } from '#utils/logging'
 import { Client } from 'discord.js'
 
 const client = new Client({
   intents: ['MessageContent', 'Guilds', 'GuildMessages'],
 })
 
-const cts = new CustomizedCommandClient(client)
+const logger = setupLogger('main')
+
+const cts = new CustomizedCommandClient(client, logger)
 
 const start = async () => {
   await cts.setup()
