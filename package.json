@@ -1,7 +1,6 @@
 {
-  "name": "command.ts-v5-template",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "jdbot",
+  "version": "0.1.0",
   "license": "MIT",
   "devDependencies": {
     "@swc/core": "1.3.27",
