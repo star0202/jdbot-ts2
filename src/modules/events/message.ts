@@ -5,6 +5,7 @@ import { Extension, listener } from '@pikokr/command.ts'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
 class MessageEvents extends Extension {
+  private censoredCache = new Set<string>()
   @listener({ event: 'messageCreate' })
   async messageCreate(msg: Message) {
     if (isMessageInvalid(msg)) return
@@ -18,7 +19,9 @@ class MessageEvents extends Extension {
       const censored = content.match(censor.regex)
 
       if (censored) {
-        const embed = new EmbedBuilder()
+        this.censoredCache.add(msg.id)
+
+        const publicEmbed = new EmbedBuilder()
           .setTitle('메세지 검열됨')
           .setDescription(
             '분류, 감지된 단어, 또는 검열이 잘못되었다고 생각하시면 문의 바랍니다.'
@@ -30,34 +33,54 @@ class MessageEvents extends Extension {
           })
           .addFields(
             { name: '유저', value: `<@${msg.author.id}>` },
-            { name: '내용', value: '||```' + msg.content + '```||' },
-            {
-              name: '내용(특문과 숫자 제거)',
-              value: '||```' + content + '```||',
-            },
-            {
-              name: '검열 대상',
-              value: '||```' + censored[0] + '```||',
-              inline: true,
-            },
+            { name: '메세지', value: '```' + msg.content + '```' },
             {
               name: '감지된 단어',
-              value:
-                '||```' + `${censor.name}(분류: ${censor.ruleType})` + '```||',
-              inline: true,
+              value: '```' + `${censor.name}(분류: ${censor.ruleType})` + '```',
             }
           )
 
         await msg.reply({
-          embeds: [embed],
+          embeds: [publicEmbed],
         })
         await msg.delete()
+
+        const adminEmbed = new EmbedBuilder()
+          .setTitle('메세지 검열됨')
+          .setColor(COLORS['DARK_RED'])
+          .setAuthor({
+            name: `${msg.author.tag} (${msg.author.id})`,
+            iconURL: msg.author.displayAvatarURL(),
+          })
+          .addFields(
+            { name: '유저', value: `<@${msg.author.id}>`, inline: true },
+            { name: '채널', value: `<#${msg.channelId}>`, inline: true },
+            { name: '내용', value: '```' + msg.content + '```' },
+            {
+              name: '내용(특문과 숫자 제거)',
+              value: '```' + content + '```',
+            },
+            {
+              name: '검열 대상',
+              value: '```' + censored[0] + '```',
+              inline: true,
+            },
+            {
+              name: '감지된 단어',
+              value: '```' + `${censor.name}(분류: ${censor.ruleType})` + '```',
+              inline: true,
+            },
+            {
+              name: '검열 정규식',
+              value: '```' + censor.regex.toString().slice(1, -2) + '```',
+            }
+          )
 
         const channel = msg.client.channels.cache.get(
           config.message_log_channel
         ) as TextBasedChannel
         await channel.send({
-          embeds: [embed],
+          embeds: [adminEmbed],
         })
 
         return
@@ -77,7 +100,7 @@ class MessageEvents extends Extension {
       .setTitle('메세지 수정됨')
       .setColor(COLORS['YELLOW'])
       .setAuthor({
-        name: after.author.tag,
+        name: `${after.author.tag} (${after.author.id})`,
         iconURL: after.author.displayAvatarURL(),
       })
       .addFields(
@@ -96,6 +119,8 @@ class MessageEvents extends Extension {
   async messageDelete(msg: Message) {
     if (isMessageInvalid(msg)) return
 
+    if (this.censoredCache.delete(msg.id)) return
+
     const channel = msg.client.channels.cache.get(
       config.message_log_channel
     ) as TextBasedChannel
@@ -104,7 +129,7 @@ class MessageEvents extends Extension {
       .setTitle('메세지 삭제됨')
       .setColor(COLORS['RED'])
       .setAuthor({
-        name: msg.author.tag,
+        name: `${msg.author.tag} (${msg.author.id})`,
         iconURL: msg.author.displayAvatarURL(),
       })
       .addFields(
