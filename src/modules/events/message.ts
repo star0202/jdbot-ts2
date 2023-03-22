@@ -10,6 +10,7 @@ class MessageEvents extends Extension {
   @listener({ event: 'messageCreate' })
   async messageCreate(msg: Message) {
     if (isMessageInvalid(msg)) return
+
     const content = msg.content
       .normalize('NFC')
       .replace(/[!?@#$%^&*():;+-=~{}<>_[\]|\\"',./`₩\d]/g, '')
