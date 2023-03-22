@@ -66,7 +66,7 @@ class DevCommands extends Extension {
     await i.deferReply()
 
     await this.commandClient.registry.loadModulesAtPath(
-      path.join(__dirname, `${name}.ts`)
+      path.join(__dirname, '..', `${name}.ts`)
     )
 
     await i.editReply('```\n' + `✅ ${name}.ts` + '\n```')
