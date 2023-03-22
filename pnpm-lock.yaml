@@ -7,6 +7,7 @@ specifiers:
   '@types/node': 18.11.18
   '@typescript-eslint/eslint-plugin': ^5.55.0
   '@typescript-eslint/parser': ^5.55.0
+  chalk: 4.1.2
   discord.js: ^14.7.1
   eslint: ^8.36.0
   eslint-config-prettier: ^8.7.0
@@ -21,6 +22,7 @@ specifiers:
 
 dependencies:
   '@pikokr/command.ts': 5.5.0_mhiut35je56qprwuj4kpcf5dgm
+  chalk: 4.1.2
   discord.js: 14.8.0
   tslog: 4.8.2
 

@@ -1,4 +1,5 @@
 import { Extension, listener } from '@pikokr/command.ts'
+import { blue, green, yellow } from 'chalk'
 import { ApplicationCommandOptionType, Interaction } from 'discord.js'
 
 class CommandEvents extends Extension {
@@ -14,20 +15,22 @@ class CommandEvents extends Extension {
     const options: string[] = []
     for (const option of interaction.options.data) {
       options.push(
-        `\n- ${option.name}: ${option.value} (${
+        `\n- ${green(option.name)}: ${blue(option.value)} (${yellow(
           ApplicationCommandOptionType[option.type]
-        })`
+        )})`
       )
     }
 
     const guild = interaction.guild
-      ? `${interaction.guild.name}(${interaction.guild.id})`
+      ? `${green(interaction.guild.name)}(${blue(interaction.guild.id)})`
       : 'DM'
 
-    this.logger.log(
-      3,
-      'COMMAND',
-      `${interaction.user.tag}(${interaction.user.id}) in ${guild}: /${interaction.commandName} ${options}`
+    this.logger.info(
+      `${green(interaction.user.tag)}(${blue(
+        interaction.user.id
+      )}) in ${guild}: ${yellow.bold(
+        `/${interaction.commandName}`
+      )}\nOptions:${options}`
     )
   }
 }

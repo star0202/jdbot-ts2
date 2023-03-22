@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@pikokr/command.ts": "^5.4.0",
+    "chalk": "4.1.2",
     "discord.js": "^14.7.1",
     "tslog": "^4.7.1"
   },
