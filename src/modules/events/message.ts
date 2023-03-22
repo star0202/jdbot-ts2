@@ -6,6 +6,7 @@ import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
 class MessageEvents extends Extension {
   private censoredCache = new Set<string>()
+
   @listener({ event: 'messageCreate' })
   async messageCreate(msg: Message) {
     if (isMessageInvalid(msg)) return
@@ -82,8 +83,6 @@ class MessageEvents extends Extension {
         await channel.send({
           embeds: [adminEmbed],
         })
-
-        return
       }
     }
   }
