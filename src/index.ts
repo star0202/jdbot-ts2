@@ -7,7 +7,7 @@ const client = new Client({
   intents: ['MessageContent', 'Guilds', 'GuildMessages'],
 })
 
-const logger = setupLogger('main')
+const logger = setupLogger('JDBot')
 
 const cts = new CustomizedCommandClient(client, logger)
 
