@@ -4,6 +4,8 @@ export const COLORS = {
   YELLOW: 0xffff00,
 }
 
+export const VERSION = require('../package.json').version // eslint-disable-line @typescript-eslint/no-var-requires
+
 export const CENSOR: {
   name: string
   regex: RegExp

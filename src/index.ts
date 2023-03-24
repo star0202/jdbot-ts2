@@ -1,22 +1,12 @@
 import { config } from '#config'
-import { CustomizedCommandClient } from '#structures'
-import { setupLogger } from '#utils/logging'
-import { Client } from 'discord.js'
+import { JDBot } from '#structures'
 
-const client = new Client({
-  intents: ['MessageContent', 'Guilds', 'GuildMessages'],
-})
+const cts = new JDBot()
 
-const logger = setupLogger('JDBot')
-
-const cts = new CustomizedCommandClient(client, logger)
-
-const start = async () => {
+;(async () => {
   await cts.setup()
 
-  await client.login(config.token)
+  await cts.discord.login(config.token)
 
   await cts.getApplicationCommandsExtension()?.sync()
-}
-
-start().then()
+})()
