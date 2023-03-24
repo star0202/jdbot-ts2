@@ -84,6 +84,8 @@ class MessageEvents extends Extension {
         await channel.send({
           embeds: [adminEmbed],
         })
+
+        break
       }
     }
   }
