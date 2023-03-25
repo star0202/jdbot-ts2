@@ -8,7 +8,7 @@ class MessageEvents extends Extension {
   private censoredCache = new Set<string>()
 
   @listener({ event: 'messageCreate' })
-  async messageCreate(msg: Message) {
+  async messageCensor(msg: Message) {
     if (isMessageInvalid(msg)) return
 
     const content = msg.content
@@ -91,7 +91,7 @@ class MessageEvents extends Extension {
   }
 
   @listener({ event: 'messageUpdate' })
-  async messageUpdate(before: Message, after: Message) {
+  async messageEditLogger(before: Message, after: Message) {
     if (isMessageInvalid(before) && isMessageInvalid(after)) return
 
     const channel = after.client.channels.cache.get(
@@ -113,12 +113,17 @@ class MessageEvents extends Extension {
       )
 
     await channel.send({ embeds: [embed] })
+  }
 
-    this.messageCreate(after)
+  @listener({ event: 'messageUpdate' })
+  async messageEditCensor(_: Message, after: Message) {
+    if (isMessageInvalid(after)) return
+
+    this.messageCensor(after)
   }
 
   @listener({ event: 'messageDelete' })
-  async messageDelete(msg: Message) {
+  async messageDeleteLogger(msg: Message) {
     if (isMessageInvalid(msg)) return
 
     if (this.censoredCache.delete(msg.id)) return

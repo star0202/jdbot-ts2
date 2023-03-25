@@ -9,7 +9,7 @@ class CommandEvents extends Extension {
   }
 
   @listener({ event: 'interactionCreate' })
-  async interactionCreate(interaction: Interaction) {
+  async commandLogger(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return
 
     const options: string[] = []
