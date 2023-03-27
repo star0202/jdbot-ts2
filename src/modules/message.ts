@@ -1,6 +1,6 @@
 import { config } from '#config'
 import { CENSOR, COLORS } from '#constants'
-import { isIrrelevant } from '#utils/message'
+import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
