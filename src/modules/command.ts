@@ -30,7 +30,7 @@ class CommandModule extends Extension {
         interaction.user.id
       )}) in ${guild}: ${yellow.bold(
         `/${interaction.commandName}`
-      )}\nOptions:${options}`
+      )}\n${options}`
     )
   }
 }
