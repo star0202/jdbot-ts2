@@ -9,7 +9,7 @@ class MessageModule extends Extension {
 
   @listener({ event: 'messageCreate' })
   async censor(msg: Message) {
-    if (isIrrelevant(msg)) return
+    if (isIrrelevant(msg) || !msg.guild) return
 
     const content = msg.content
       .normalize('NFC')
@@ -92,7 +92,7 @@ class MessageModule extends Extension {
 
   @listener({ event: 'messageUpdate' })
   async editLogger(before: Message, after: Message) {
-    if (isIrrelevant(before) && isIrrelevant(after)) return
+    if ((isIrrelevant(before) && isIrrelevant(after)) || !after.guild) return
 
     const channel = after.client.channels.cache.get(
       config.message_log_channel
@@ -117,7 +117,7 @@ class MessageModule extends Extension {
 
   @listener({ event: 'messageUpdate' })
   async editCensor(_: Message, after: Message) {
-    if (isIrrelevant(after)) return
+    if (isIrrelevant(after) || !after.guild) return
 
     this.censor(after)
   }

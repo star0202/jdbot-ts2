@@ -1,14 +1,13 @@
 import { config } from '#config'
 import { COLORS } from '#constants'
+import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
 class Contact extends Extension {
   @listener({ event: 'messageCreate' })
   async contact(msg: Message) {
-    if (msg.author.bot || msg.content.length === 0) return
-
-    if (!msg.channel.isDMBased()) return
+    if (isIrrelevant(msg) || !msg.channel.isDMBased()) return
 
     const channel = msg.client.channels.cache.get(
       config.contact_channel
