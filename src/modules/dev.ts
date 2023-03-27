@@ -1,4 +1,3 @@
-import { config } from '#config'
 import {
   Extension,
   applicationCommand,
@@ -17,8 +16,7 @@ class Dev extends Extension {
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
     name: 'reload',
-    description: 'Reload all modules',
-    guilds: config.staff_guilds,
+    description: '[OWNER] Reload all modules',
   })
   async reload(i: ChatInputCommandInteraction) {
     await i.deferReply()
@@ -50,8 +48,7 @@ class Dev extends Extension {
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
     name: 'load',
-    description: 'Load a module',
-    guilds: config.staff_guilds,
+    description: '[OWNER] Load a module',
   })
   async load(
     i: ChatInputCommandInteraction,
