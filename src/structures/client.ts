@@ -53,7 +53,7 @@ export class JDBot extends CommandClient {
       this.jejudo?.handleInteraction(i)
     })
 
-    this.discord.user?.setActivity(`v${VERSION}`)
+    this.discord.user?.setActivity(`문의는 DM으로! | v${VERSION}`)
 
     this.logger.info(`Logged in as: ${green(this.discord.user?.tag)}`)
 
