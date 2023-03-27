@@ -12,7 +12,7 @@ import {
 } from 'discord.js'
 import path from 'path'
 
-class DevCommands extends Extension {
+class Dev extends Extension {
   @ownerOnly
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
@@ -66,7 +66,7 @@ class DevCommands extends Extension {
     await i.deferReply()
 
     await this.commandClient.registry.loadModulesAtPath(
-      path.join(__dirname, '..', `${name}.ts`)
+      path.join(__dirname, `${name}.ts`)
     )
 
     await i.editReply('```\n' + `✅ ${name}.ts` + '\n```')
@@ -74,5 +74,5 @@ class DevCommands extends Extension {
 }
 
 export const setup = async () => {
-  return new DevCommands()
+  return new Dev()
 }

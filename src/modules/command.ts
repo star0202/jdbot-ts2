@@ -2,7 +2,7 @@ import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, yellow } from 'chalk'
 import { ApplicationCommandOptionType, Interaction } from 'discord.js'
 
-class CommandEvents extends Extension {
+class CommandModule extends Extension {
   @listener({ event: 'applicationCommandInvokeError', emitter: 'cts' })
   async errorHandler(err: Error) {
     this.logger.error(err)
@@ -36,5 +36,5 @@ class CommandEvents extends Extension {
 }
 
 export const setup = async () => {
-  return new CommandEvents()
+  return new CommandModule()
 }

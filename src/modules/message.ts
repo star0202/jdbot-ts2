@@ -4,11 +4,11 @@ import { isMessageInvalid } from '#utils/message'
 import { Extension, listener } from '@pikokr/command.ts'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
-class MessageEvents extends Extension {
+class MessageModule extends Extension {
   private censoredCache = new Set<string>()
 
   @listener({ event: 'messageCreate' })
-  async messageCensor(msg: Message) {
+  async censor(msg: Message) {
     if (isMessageInvalid(msg)) return
 
     const content = msg.content
@@ -91,7 +91,7 @@ class MessageEvents extends Extension {
   }
 
   @listener({ event: 'messageUpdate' })
-  async messageEditLogger(before: Message, after: Message) {
+  async editLogger(before: Message, after: Message) {
     if (isMessageInvalid(before) && isMessageInvalid(after)) return
 
     const channel = after.client.channels.cache.get(
@@ -116,14 +116,14 @@ class MessageEvents extends Extension {
   }
 
   @listener({ event: 'messageUpdate' })
-  async messageEditCensor(_: Message, after: Message) {
+  async editCensor(_: Message, after: Message) {
     if (isMessageInvalid(after)) return
 
-    this.messageCensor(after)
+    this.censor(after)
   }
 
   @listener({ event: 'messageDelete' })
-  async messageDeleteLogger(msg: Message) {
+  async deleteLogger(msg: Message) {
     if (isMessageInvalid(msg)) return
 
     if (this.censoredCache.delete(msg.id)) return
@@ -150,5 +150,5 @@ class MessageEvents extends Extension {
 }
 
 export const setup = async () => {
-  return new MessageEvents()
+  return new MessageModule()
 }
