@@ -1,6 +1,6 @@
 import { config } from '#config'
 import { CENSOR, COLORS } from '#constants'
-import { messageBypasses } from '#utils/message'
+import { isIrrelevant } from '#utils/message'
 import { Extension, listener } from '@pikokr/command.ts'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
@@ -9,7 +9,7 @@ class MessageModule extends Extension {
 
   @listener({ event: 'messageCreate' })
   async censor(msg: Message) {
-    if (messageBypasses(msg)) return
+    if (isIrrelevant(msg)) return
 
     const content = msg.content
       .normalize('NFC')
@@ -92,7 +92,7 @@ class MessageModule extends Extension {
 
   @listener({ event: 'messageUpdate' })
   async editLogger(before: Message, after: Message) {
-    if (messageBypasses(before) && messageBypasses(after)) return
+    if (isIrrelevant(before) && isIrrelevant(after)) return
 
     const channel = after.client.channels.cache.get(
       config.message_log_channel
@@ -117,14 +117,14 @@ class MessageModule extends Extension {
 
   @listener({ event: 'messageUpdate' })
   async editCensor(_: Message, after: Message) {
-    if (messageBypasses(after)) return
+    if (isIrrelevant(after)) return
 
     this.censor(after)
   }
 
   @listener({ event: 'messageDelete' })
   async deleteLogger(msg: Message) {
-    if (messageBypasses(msg)) return
+    if (isIrrelevant(msg)) return
 
     if (this.censoredCache.delete(msg.id)) return
 
