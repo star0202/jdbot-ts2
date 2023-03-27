@@ -68,6 +68,30 @@ class Dev extends Extension {
 
     await i.editReply('```\n' + `✅ ${name}.ts` + '\n```')
   }
+
+  @ownerOnly
+  @applicationCommand({
+    type: ApplicationCommandType.ChatInput,
+    name: 'unregister',
+    description: '[OWNER] Unregister commands',
+  })
+  async unregister(
+    i: ChatInputCommandInteraction,
+    @option({
+      type: ApplicationCommandOptionType.Boolean,
+      name: 'global',
+      description: 'Global?',
+      required: true,
+    })
+    global: boolean
+  ) {
+    await i.deferReply()
+
+    if (global) this.client.application?.commands.set([])
+    else i.guild?.commands.set([])
+
+    await i.editReply('Done')
+  }
 }
 
 export const setup = async () => {
