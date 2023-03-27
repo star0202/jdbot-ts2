@@ -28,7 +28,7 @@ class MessageModule extends Extension {
           .setDescription(
             '분류, 감지된 단어, 또는 검열이 잘못되었다고 생각하시면 문의 바랍니다.'
           )
-          .setColor(COLORS['DARK_RED'])
+          .setColor(COLORS.DARK_RED)
           .setAuthor({
             name: msg.author.tag,
             iconURL: msg.author.displayAvatarURL(),
@@ -49,7 +49,7 @@ class MessageModule extends Extension {
 
         const adminEmbed = new EmbedBuilder()
           .setTitle('메세지 검열됨')
-          .setColor(COLORS['DARK_RED'])
+          .setColor(COLORS.DARK_RED)
           .setAuthor({
             name: `${msg.author.tag} (${msg.author.id})`,
             iconURL: msg.author.displayAvatarURL(),
@@ -100,7 +100,7 @@ class MessageModule extends Extension {
 
     const embed = new EmbedBuilder()
       .setTitle('메세지 수정됨')
-      .setColor(COLORS['YELLOW'])
+      .setColor(COLORS.YELLOW)
       .setAuthor({
         name: `${after.author.tag} (${after.author.id})`,
         iconURL: after.author.displayAvatarURL(),
@@ -134,7 +134,7 @@ class MessageModule extends Extension {
 
     const embed = new EmbedBuilder()
       .setTitle('메세지 삭제됨')
-      .setColor(COLORS['RED'])
+      .setColor(COLORS.RED)
       .setAuthor({
         name: `${msg.author.tag} (${msg.author.id})`,
         iconURL: msg.author.displayAvatarURL(),
