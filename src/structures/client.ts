@@ -1,9 +1,9 @@
 import { config } from '#config'
 import { VERSION } from '#constants'
-import { setupLogger } from '#utils/logging'
+import { setupLogger } from '#utils'
 import { CommandClient } from '@pikokr/command.ts'
 import { green } from 'chalk'
-import { Client } from 'discord.js'
+import { Client, Partials } from 'discord.js'
 import { Jejudo } from 'jejudo'
 import path from 'path'
 
@@ -12,7 +12,15 @@ export class JDBot extends CommandClient {
 
   constructor() {
     super(
-      new Client({ intents: ['MessageContent', 'Guilds', 'GuildMessages'] }),
+      new Client({
+        intents: [
+          'DirectMessages',
+          'GuildMessages',
+          'Guilds',
+          'MessageContent',
+        ],
+        partials: [Partials.Channel],
+      }),
       setupLogger('JDBot'),
       { minLevel: config.debug ? 2 : 3 }
     )
