@@ -1,7 +1,9 @@
 type Config = {
   token: string
-  guilds: string[]
+  neis_key: string
+  school_code: number
 
+  guilds: string[]
   message_log_channel: string
   contact_channel: string
 
