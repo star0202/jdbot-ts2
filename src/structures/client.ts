@@ -1,6 +1,6 @@
 import { config } from '#config'
 import { VERSION } from '#constants'
-import { setupLogger } from '#utils'
+import { logger } from '#utils'
 import { CommandClient } from '@pikokr/command.ts'
 import { green } from 'chalk'
 import { Client, Partials } from 'discord.js'
@@ -21,8 +21,7 @@ export class JDBot extends CommandClient {
         ],
         partials: [Partials.Channel],
       }),
-      setupLogger('JDBot'),
-      { minLevel: config.debug ? 2 : 3 }
+      logger
     )
 
     this.discord.on('ready', () => this.onReady())
