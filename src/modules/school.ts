@@ -34,6 +34,7 @@ class School extends Extension {
       const embed = new EmbedBuilder()
         .setTitle('오류 발생')
         .setColor(COLORS.DARK_RED)
+
       if (e instanceof Error) embed.setDescription(e.message)
       else embed.setDescription('알 수 없는 오류')
 
