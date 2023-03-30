@@ -13,7 +13,7 @@ class School extends Extension {
     await i.deferReply()
 
     const now = dayjs()
-    const data = await getMeal(now)
+    const data = await getMeal(now).catch((e) => e.message)
 
     await i.editReply(data)
   }
