@@ -1,7 +1,12 @@
+import { COLORS } from '#constants'
 import { getMeal } from '#utils'
 import { Extension, applicationCommand } from '@pikokr/command.ts'
 import dayjs from 'dayjs'
-import { ApplicationCommandType, ChatInputCommandInteraction } from 'discord.js'
+import {
+  ApplicationCommandType,
+  ChatInputCommandInteraction,
+  EmbedBuilder,
+} from 'discord.js'
 
 class School extends Extension {
   @applicationCommand({
@@ -13,9 +18,27 @@ class School extends Extension {
     await i.deferReply()
 
     const now = dayjs()
-    const data = await getMeal(now).catch((e) => e.message)
 
-    await i.editReply(data)
+    try {
+      const meal = await getMeal(now)
+
+      await i.editReply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle(`${now.format('M월 D일')} 급식`)
+            .setDescription(meal.join('\n'))
+            .setColor(COLORS.GREEN),
+        ],
+      })
+    } catch (e) {
+      const embed = new EmbedBuilder()
+        .setTitle('오류 발생')
+        .setColor(COLORS.DARK_RED)
+      if (e instanceof Error) embed.setDescription(e.message)
+      else embed.setDescription('알 수 없는 오류')
+
+      await i.editReply({ embeds: [embed] })
+    }
   }
 }
 
