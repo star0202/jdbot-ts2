@@ -9,11 +9,11 @@ class CommandModule extends Extension {
   }
 
   @listener({ event: 'interactionCreate' })
-  async commandLogger(interaction: Interaction) {
-    if (!interaction.isChatInputCommand()) return
+  async commandLogger(i: Interaction) {
+    if (!i.isChatInputCommand()) return
 
     const options: string[] = []
-    for (const option of interaction.options.data) {
+    for (const option of i.options.data) {
       options.push(
         `\n- ${green(option.name)}: ${blue(option.value)} (${yellow(
           ApplicationCommandOptionType[option.type]
@@ -21,15 +21,11 @@ class CommandModule extends Extension {
       )
     }
 
-    const guild = interaction.guild
-      ? `${green(interaction.guild.name)}(${blue(interaction.guild.id)})`
-      : 'DM'
+    const guild = i.guild ? `${green(i.guild.name)}(${blue(i.guild.id)})` : 'DM'
 
     this.logger.info(
-      `${green(interaction.user.tag)}(${blue(
-        interaction.user.id
-      )}) in ${guild}: ${yellow.bold(
-        `/${interaction.commandName}`
+      `${green(i.user.tag)}(${blue(i.user.id)}) in ${guild}: ${yellow.bold(
+        `/${i.commandName}`
       )}\n${options}`
     )
   }
