@@ -13,16 +13,18 @@ class Contact extends Extension {
       config.contact_channel
     ) as TextBasedChannel
 
-    const embed = new EmbedBuilder()
-      .setTitle('문의')
-      .setAuthor({
-        name: `${msg.author.tag} (${msg.author.id})`,
-        iconURL: msg.author.displayAvatarURL(),
-      })
-      .setDescription(msg.content)
-      .setColor(COLORS.GREEN)
-
-    await channel.send({ embeds: [embed] })
+    await channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('문의')
+          .setAuthor({
+            name: `${msg.author.tag} (${msg.author.id})`,
+            iconURL: msg.author.displayAvatarURL(),
+          })
+          .setDescription(msg.content)
+          .setColor(COLORS.GREEN),
+      ],
+    })
   }
 }
 
