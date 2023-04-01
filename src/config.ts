@@ -6,6 +6,7 @@ type Config = {
   guilds: string[]
   message_log_channel: string
   contact_channel: string
+  member_log_channel: string
 
   debug: boolean
 }

@@ -2,10 +2,11 @@ import { config } from '#config'
 import { COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
-import { blue, green, yellow } from 'chalk'
+import { blue, green, red, yellow } from 'chalk'
 import {
   ApplicationCommandOptionType,
   EmbedBuilder,
+  GuildMember,
   Interaction,
   Message,
   TextBasedChannel,
@@ -70,6 +71,58 @@ class Logging extends Extension {
             { name: '수정 전', value: '```' + before.content + '```' },
             { name: '수정 후', value: '```' + after.content + '```' }
           ),
+      ],
+    })
+  }
+
+  @listener({ event: 'guildMemberAdd' })
+  async memberJoinLogger(member: GuildMember) {
+    if (member.user.bot) return
+
+    this.logger.info(
+      `Joined: ${green(member.user.tag)} (${blue(member.user.id)})`
+    )
+
+    const channel = member.client.channels.cache.get(
+      config.member_log_channel
+    ) as TextBasedChannel
+
+    await channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('입장')
+          .setColor(COLORS.GREEN)
+          .setAuthor({
+            name: `${member.user.tag} (${member.user.id})`,
+            iconURL: member.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
+      ],
+    })
+  }
+
+  @listener({ event: 'guildMemberRemove' })
+  async memberLeaveLogger(member: GuildMember) {
+    if (member.user.bot) return
+
+    this.logger.info(
+      `Left: ${green(member.user.tag)} (${blue(member.user.id)})`
+    )
+
+    const channel = member.client.channels.cache.get(
+      config.member_log_channel
+    ) as TextBasedChannel
+
+    await channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('퇴장')
+          .setColor(COLORS.RED)
+          .setAuthor({
+            name: `${member.user.tag} (${member.user.id})`,
+            iconURL: member.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     })
   }

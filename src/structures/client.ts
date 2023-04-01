@@ -18,8 +18,9 @@ export class JDBot extends CommandClient {
           'GuildMessages',
           'Guilds',
           'MessageContent',
+          'GuildMembers',
         ],
-        partials: [Partials.Channel],
+        partials: [Partials.Channel, Partials.GuildMember],
       }),
       logger
     )
