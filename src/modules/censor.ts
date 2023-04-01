@@ -2,6 +2,7 @@ import { config } from '#config'
 import { CENSOR, COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
+import { blue, green, red } from 'chalk'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
 class Censor extends Extension {
@@ -24,7 +25,9 @@ class Censor extends Extension {
         this.censoredCache.add(msg.id)
 
         this.logger.info(
-          `Censored: ${msg.author.tag} (${msg.author.id}) - ${msg.content}`
+          `Censored: ${green(msg.author.tag)} (${blue(
+            msg.author.id
+          )}) - ${red.bold.strikethrough(msg.content)}`
         )
 
         await msg.reply({
@@ -111,7 +114,9 @@ class Censor extends Extension {
     if (this.censoredCache.delete(msg.id)) return
 
     this.logger.info(
-      `Deleted: ${msg.author.tag} (${msg.author.id}) - ${msg.content})`
+      `Deleted: ${green(msg.author.tag)} (${blue(
+        msg.author.id
+      )}) - ${red.bold.strikethrough(msg.content)}`
     )
 
     const channel = msg.client.channels.cache.get(

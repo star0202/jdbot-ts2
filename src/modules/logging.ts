@@ -44,7 +44,11 @@ class Logging extends Extension {
     if ((isIrrelevant(before) && isIrrelevant(after)) || !after.guild) return
 
     this.logger.info(
-      `Edited: ${before.author.tag} (${before.author.id}) - ${before.content} -> ${after.content}`
+      `Edited: ${green(before.author.tag)} (${blue(
+        before.author.id
+      )}) - ${red.bold.strikethrough(before.content)} -> ${yellow.bold(
+        after.content
+      )}`
     )
 
     const channel = after.client.channels.cache.get(
