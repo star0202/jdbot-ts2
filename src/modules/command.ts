@@ -26,7 +26,7 @@ class CommandModule extends Extension {
     this.logger.info(
       `${green(i.user.tag)}(${blue(i.user.id)}) in ${guild}: ${yellow.bold(
         `/${i.commandName}`
-      )}\n${options}`
+      )}${options}`
     )
   }
 }
