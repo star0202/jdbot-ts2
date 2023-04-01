@@ -1,8 +1,9 @@
 import { COLORS } from '#constants'
 import { getMeal } from '#utils'
-import { Extension, applicationCommand } from '@pikokr/command.ts'
+import { Extension, applicationCommand, option } from '@pikokr/command.ts'
 import dayjs from 'dayjs'
 import {
+  ApplicationCommandOptionType,
   ApplicationCommandType,
   ChatInputCommandInteraction,
   EmbedBuilder,
@@ -12,12 +13,21 @@ class School extends Extension {
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
     name: '급식',
-    description: '오늘의 급식을 확인합니다.',
+    description: '급식을 확인합니다.',
   })
-  async meal(i: ChatInputCommandInteraction) {
+  async meal(
+    i: ChatInputCommandInteraction,
+    @option({
+      type: ApplicationCommandOptionType.String,
+      name: '날짜',
+      description: 'yyyymmdd 형식의 날짜 ex) 20230331',
+      required: false,
+    })
+    date?: string
+  ) {
     await i.deferReply()
 
-    const now = dayjs()
+    const now = dayjs(date)
 
     try {
       const meal = await getMeal(now)
@@ -25,7 +35,7 @@ class School extends Extension {
       await i.editReply({
         embeds: [
           new EmbedBuilder()
-            .setTitle(`${now.format('M월 D일')} 급식`)
+            .setTitle(`${now.format('YYYY년 M월 D일')} 급식`)
             .setDescription(meal.join('\n'))
             .setColor(COLORS.GREEN),
         ],
