@@ -52,7 +52,10 @@ export class JDBot extends CommandClient {
       this.jejudo?.handleInteraction(i)
     })
 
-    this.discord.user?.setActivity(`문의는 DM으로! | v${VERSION}`)
+    this.discord.user?.setActivity(
+      config.debug ? `Testing` : `문의는 DM으로! | v${VERSION}`
+    )
+    this.discord.user?.setStatus(config.debug ? 'idle' : 'online')
 
     this.logger.info(`Logged in as: ${green(this.discord.user?.tag)}`)
 
