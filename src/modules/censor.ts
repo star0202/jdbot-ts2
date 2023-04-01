@@ -4,7 +4,7 @@ import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
 
-class MessageModule extends Extension {
+class Censor extends Extension {
   private censoredCache = new Set<string>()
 
   @listener({ event: 'messageCreate' })
@@ -94,41 +94,14 @@ class MessageModule extends Extension {
   }
 
   @listener({ event: 'messageUpdate' })
-  async editLogger(before: Message, after: Message) {
-    if ((isIrrelevant(before) && isIrrelevant(after)) || !after.guild) return
-
-    const channel = after.client.channels.cache.get(
-      config.message_log_channel
-    ) as TextBasedChannel
-
-    await channel.send({
-      embeds: [
-        new EmbedBuilder()
-          .setTitle('메세지 수정됨')
-          .setColor(COLORS.YELLOW)
-          .setAuthor({
-            name: `${after.author.tag} (${after.author.id})`,
-            iconURL: after.author.displayAvatarURL(),
-          })
-          .addFields(
-            { name: '유저', value: `<@${after.author.id}>`, inline: true },
-            { name: '채널', value: `<#${after.channelId}>`, inline: true },
-            { name: '수정 전', value: '```' + before.content + '```' },
-            { name: '수정 후', value: '```' + after.content + '```' }
-          ),
-      ],
-    })
-  }
-
-  @listener({ event: 'messageUpdate' })
   async editCensor(_: Message, after: Message) {
     if (isIrrelevant(after) || !after.guild) return
 
     this.censor(after)
   }
 
-  @listener({ event: 'messageDelete' })
-  async deleteLogger(msg: Message) {
+  @listener({ event: 'messageDelete' }) // because of this.censoredCache
+  async messageDeleteLogger(msg: Message) {
     if (isIrrelevant(msg)) return
 
     if (this.censoredCache.delete(msg.id)) return
@@ -157,5 +130,5 @@ class MessageModule extends Extension {
 }
 
 export const setup = async () => {
-  return new MessageModule()
+  return new Censor()
 }
