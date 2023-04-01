@@ -24,7 +24,7 @@ class Censor extends Extension {
         this.censoredCache.add(msg.id)
 
         this.logger.info(
-          `Censored: ${msg.author.tag} (${msg.author.id}) - ${msg.content})`
+          `Censored: ${msg.author.tag} (${msg.author.id}) - ${msg.content}`
         )
 
         await msg.reply({
