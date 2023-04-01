@@ -43,6 +43,10 @@ class Logging extends Extension {
   async messageEditLogger(before: Message, after: Message) {
     if ((isIrrelevant(before) && isIrrelevant(after)) || !after.guild) return
 
+    this.logger.info(
+      `Edited: ${before.author.tag} (${before.author.id}) - ${before.content} -> ${after.content}`
+    )
+
     const channel = after.client.channels.cache.get(
       config.message_log_channel
     ) as TextBasedChannel

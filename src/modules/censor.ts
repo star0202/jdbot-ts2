@@ -23,6 +23,10 @@ class Censor extends Extension {
       if (censored) {
         this.censoredCache.add(msg.id)
 
+        this.logger.info(
+          `Censored: ${msg.author.tag} (${msg.author.id}) - ${msg.content})`
+        )
+
         await msg.reply({
           embeds: [
             new EmbedBuilder()
@@ -105,6 +109,10 @@ class Censor extends Extension {
     if (isIrrelevant(msg)) return
 
     if (this.censoredCache.delete(msg.id)) return
+
+    this.logger.info(
+      `Deleted: ${msg.author.tag} (${msg.author.id}) - ${msg.content})`
+    )
 
     const channel = msg.client.channels.cache.get(
       config.message_log_channel
