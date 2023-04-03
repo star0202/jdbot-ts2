@@ -4,9 +4,12 @@ import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red } from 'chalk'
 import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
+import Inko from 'inko'
 
 class Censor extends Extension {
   private censoredCache = new Set<string>()
+
+  private inko = new Inko()
 
   @listener({ event: 'messageCreate' })
   async censor(msg: Message) {
@@ -19,7 +22,10 @@ class Censor extends Extension {
     if (!content) return
 
     for (const censor of CENSOR) {
-      const censored = content.match(censor.regex)
+      const censored =
+        content.match(censor.regex) ??
+        this.inko.en2ko(content).match(censor.regex) ??
+        this.inko.ko2en(content).match(censor.regex)
 
       if (censored) {
         this.censoredCache.add(msg.id)
