@@ -43,8 +43,8 @@ export class JDBot extends CommandClient {
   async onReady() {
     this.jejudo = new Jejudo(this.discord, {
       isOwner: (user) => this.owners.has(user.id),
-      prefix: `.`,
-      noPermission: (i) => i.reply('Permission denied'),
+      prefix: `;;`,
+      noPermission: (i) => i.reply('Permission denied | 권한이 없습니다'),
     })
 
     this.discord.on('messageCreate', (msg) => this.jejudo?.handleMessage(msg))

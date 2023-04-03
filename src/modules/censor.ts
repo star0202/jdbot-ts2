@@ -13,7 +13,8 @@ class Censor extends Extension {
 
   @listener({ event: 'messageCreate' })
   async censor(msg: Message) {
-    if (isIrrelevant(msg) || !msg.guild) return
+    if (isIrrelevant(msg) || !msg.guild || msg.content.startsWith(';;jejudo'))
+      return
 
     const content = msg.content
       .normalize('NFC')
