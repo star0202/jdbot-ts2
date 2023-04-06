@@ -58,8 +58,6 @@ class SchoolModule extends Extension {
           )
         )) as string[]
 
-      logger.info(meal)
-
       await i.editReply({
         embeds: [
           new EmbedBuilder()
