@@ -3,9 +3,8 @@ import { COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red, yellow } from 'chalk'
-import {
-  ApplicationCommandOptionType,
-  EmbedBuilder,
+import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js'
+import type {
   GuildMember,
   Interaction,
   Message,

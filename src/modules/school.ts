@@ -6,10 +6,11 @@ import dayjs from 'dayjs'
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  ChatInputCommandInteraction,
   EmbedBuilder,
 } from 'discord.js'
-import { Neis, School } from 'neis.ts'
+import type { ChatInputCommandInteraction } from 'discord.js'
+import { Neis } from 'neis.ts'
+import type { School } from 'neis.ts'
 
 class SchoolModule extends Extension {
   private readonly neis: Neis

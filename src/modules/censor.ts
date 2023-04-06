@@ -3,7 +3,8 @@ import { CENSOR, COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red } from 'chalk'
-import { EmbedBuilder, Message, TextBasedChannel } from 'discord.js'
+import { EmbedBuilder } from 'discord.js'
+import type { Message, TextBasedChannel } from 'discord.js'
 import Inko from 'inko'
 
 class Censor extends Extension {
