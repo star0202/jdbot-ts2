@@ -7,7 +7,6 @@ specifiers:
   '@types/node': 18.11.18
   '@typescript-eslint/eslint-plugin': ^5.55.0
   '@typescript-eslint/parser': ^5.55.0
-  axios: ^1.3.4
   chalk: 4.1.2
   dayjs: ^1.11.7
   discord.js: ^14.7.1
@@ -16,6 +15,7 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   inko: ^1.1.1
   jejudo: ^0.1.5
+  neis.ts: ^0.3.2
   prettier: ^2.8.4
   ts-node: 10.9.1
   tsconfig-paths: ^4.1.2
@@ -26,12 +26,12 @@ specifiers:
 
 dependencies:
   '@pikokr/command.ts': 5.5.0_mhiut35je56qprwuj4kpcf5dgm
-  axios: 1.3.4
   chalk: 4.1.2
   dayjs: 1.11.7
   discord.js: 14.8.0
   inko: 1.1.1
   jejudo: 0.1.5_yhuwmwozfcfugq7pt7q7izlkju
+  neis.ts: 0.3.2
   tslog: 4.8.2
 
 devDependencies:
@@ -1819,6 +1819,16 @@ packages:
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  /neis.ts/0.3.2:
+    resolution: {integrity: sha512-u01l5rXxYQEol11BcFGtZuUmrjOB2NZT2l7CxTjr/k0qMP85S0Fzf+uyC3iubSYzwRfyBadwL2PIe95y+8JZ8g==}
+    dependencies:
+      axios: 1.3.4
+    optionalDependencies:
+      tslog: 4.8.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /node-fetch/2.6.9:
     resolution: {integrity: sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==}

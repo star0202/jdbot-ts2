@@ -1,5 +1,6 @@
+import { config } from '#config'
 import { COLORS } from '#constants'
-import { getMeal } from '#utils'
+import { logger } from '#utils'
 import { Extension, applicationCommand, option } from '@pikokr/command.ts'
 import dayjs from 'dayjs'
 import {
@@ -8,8 +9,27 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
 } from 'discord.js'
+import { Neis, School } from 'neis.ts'
 
-class School extends Extension {
+class SchoolModule extends Extension {
+  private readonly neis: Neis
+  private school?: School
+
+  constructor() {
+    super()
+    this.neis = new Neis({
+      KEY: config.neis_key,
+      logger: logger.getSubLogger({ name: 'Neis' }),
+    })
+  }
+
+  async setup() {
+    this.school = await this.neis.getSchoolOne({
+      ATPT_OFCDC_SC_CODE: 'B10',
+      SD_SCHUL_CODE: config.school_code,
+    })
+  }
+
   @applicationCommand({
     type: ApplicationCommandType.ChatInput,
     name: '급식',
@@ -30,7 +50,15 @@ class School extends Extension {
     const now = dayjs(date)
 
     try {
-      const meal = await getMeal(now)
+      const meal = (await this.school
+        ?.getMealOne({ MLSV_YMD: now.format('YYYYMMDD') })
+        .then((meal) =>
+          meal.DDISH_NM.replace(/ {2,}(?!(\((\d{1,2}\.)+\)))/g, '').split(
+            '<br/>'
+          )
+        )) as string[]
+
+      logger.info(meal)
 
       await i.editReply({
         embeds: [
@@ -54,5 +82,7 @@ class School extends Extension {
 }
 
 export const setup = async () => {
-  return new School()
+  const school = new SchoolModule()
+  await school.setup()
+  return school
 }
