@@ -41,6 +41,8 @@ class Logging extends Extension {
 
   @listener({ event: 'messageUpdate' })
   async messageEditLogger(before: Message, after: Message) {
+    if (before.content === after.content) return
+
     if ((isIrrelevant(before) && isIrrelevant(after)) || !after.guild) return
 
     this.logger.info(

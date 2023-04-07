@@ -109,7 +109,9 @@ class Censor extends Extension {
   }
 
   @listener({ event: 'messageUpdate' })
-  async editCensor(_: Message, after: Message) {
+  async editCensor(before: Message, after: Message) {
+    if (before.content === after.content) return
+
     if (isIrrelevant(after) || !after.guild) return
 
     this.censor(after)
