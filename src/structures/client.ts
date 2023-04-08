@@ -4,6 +4,7 @@ import { logger } from '#utils'
 import { CommandClient } from '@pikokr/command.ts'
 import { green } from 'chalk'
 import { Client, Partials } from 'discord.js'
+import { short } from 'git-rev-sync'
 import { Jejudo } from 'jejudo'
 import path from 'path'
 
@@ -54,7 +55,7 @@ export class JDBot extends CommandClient {
     })
 
     this.discord.user?.setActivity(
-      config.debug ? `Testing` : `문의는 DM으로! | v${VERSION}`
+      config.debug ? `Testing` : `문의는 DM으로! | v${VERSION} (${short()})`
     )
     this.discord.user?.setStatus(config.debug ? 'idle' : 'online')
 
