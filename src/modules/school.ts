@@ -6,9 +6,9 @@ import dayjs from 'dayjs'
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
+  ChatInputCommandInteraction,
   EmbedBuilder,
 } from 'discord.js'
-import type { ChatInputCommandInteraction } from 'discord.js'
 import { Neis } from 'neis.ts'
 import type { School } from 'neis.ts'
 

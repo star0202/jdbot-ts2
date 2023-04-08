@@ -7,8 +7,8 @@ import {
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
+  ChatInputCommandInteraction,
 } from 'discord.js'
-import type { ChatInputCommandInteraction } from 'discord.js'
 import path from 'path'
 
 class Dev extends Extension {
