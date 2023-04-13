@@ -56,7 +56,7 @@ export const CENSOR: {
   },
   {
     name: '지랄',
-    regex: /(지|쥐|ㅈ|ㅈi|ㅈl|zi|g|야)[ㄱ-ㅎㅏ-ㅣ이]*(lal|ral|랄|ㄹ|룰)/g,
+    regex: /(지|쥐|ㅈ|ㅈi|ㅈl|zi|g|야)(lal|ral|랄|ㄹ|룰)/g,
     ruleType: '욕설',
   },
   {
