@@ -274,11 +274,6 @@ export const CENSOR: {
     ruleType: '욕설',
   },
   {
-    name: '왜 이렇게 복잡하게 말씀하시는 거죠?',
-    regex: /([ㄱ-ㅎㅏ-ㅣ]{1,3}[ㄲㄸㅃㅆㅉㄳㄵㄶㄺㄻㄼㄽㄾㄿㅀ]){3,}/g,
-    ruleType: '욕설',
-  },
-  {
     name: '육시랄',
     regex: /육시[랄럴]/g,
     ruleType: '욕설',
