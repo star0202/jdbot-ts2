@@ -8,6 +8,7 @@ import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
   ChatInputCommandInteraction,
+  codeBlock,
 } from 'discord.js'
 import path from 'path'
 
@@ -37,10 +38,10 @@ class Dev extends Extension {
     }
 
     await i.editReply(
-      '```\n' +
+      codeBlock(
         `✅ ${success} ❌ ${fail}\n` +
-        data.map((x) => `${x.result ? '✅' : '❌'} ${x.path}`).join('\n') +
-        '```'
+          data.map((x) => `${x.result ? '✅' : '❌'} ${x.path}`).join('\n')
+      )
     )
   }
 
@@ -66,7 +67,7 @@ class Dev extends Extension {
       path.join(__dirname, `${name}.ts`)
     )
 
-    await i.editReply('```\n' + `✅ ${name}.ts` + '\n```')
+    await i.editReply(codeBlock(`✅ ${name}.ts`))
   }
 
   @ownerOnly

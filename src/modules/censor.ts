@@ -3,7 +3,7 @@ import { CENSOR, COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red } from 'chalk'
-import { EmbedBuilder } from 'discord.js'
+import { EmbedBuilder, codeBlock } from 'discord.js'
 import type { Message, TextBasedChannel } from 'discord.js'
 import Inko from 'inko'
 
@@ -52,11 +52,10 @@ class Censor extends Extension {
               })
               .addFields(
                 { name: '유저', value: `<@${msg.author.id}>` },
-                { name: '메세지', value: '```' + msg.content + '```' },
+                { name: '메세지', value: codeBlock(msg.content) },
                 {
                   name: '감지된 단어',
-                  value:
-                    '```' + `${censor.name}(분류: ${censor.ruleType})` + '```',
+                  value: codeBlock(`${censor.name}(분류: ${censor.ruleType})`),
                 }
               ),
           ],
@@ -79,25 +78,24 @@ class Censor extends Extension {
               .addFields(
                 { name: '유저', value: `<@${msg.author.id}>`, inline: true },
                 { name: '채널', value: `<#${msg.channelId}>`, inline: true },
-                { name: '내용', value: '```' + msg.content + '```' },
+                { name: '내용', value: codeBlock(msg.content) },
                 {
                   name: '내용(특문과 숫자 제거)',
-                  value: '```' + content + '```',
+                  value: codeBlock(content),
                 },
                 {
                   name: '검열 대상',
-                  value: '```' + censored[0] + '```',
+                  value: codeBlock(censored[0]),
                   inline: true,
                 },
                 {
                   name: '감지된 단어',
-                  value:
-                    '```' + `${censor.name}(분류: ${censor.ruleType})` + '```',
+                  value: codeBlock(`${censor.name}(분류: ${censor.ruleType})`),
                   inline: true,
                 },
                 {
                   name: '검열 정규식',
-                  value: '```' + censor.regex.toString().slice(1, -2) + '```',
+                  value: codeBlock(censor.regex.source),
                 }
               ),
           ],
@@ -145,7 +143,7 @@ class Censor extends Extension {
           .addFields(
             { name: '유저', value: `<@${msg.author.id}>`, inline: true },
             { name: '채널', value: `<#${msg.channelId}>`, inline: true },
-            { name: '내용', value: '```' + msg.content + '```' }
+            { name: '내용', value: codeBlock(msg.content) }
           ),
       ],
     })
