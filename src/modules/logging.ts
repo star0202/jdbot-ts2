@@ -1,15 +1,20 @@
 import { config } from '#config'
 import { COLORS } from '#constants'
-import { isIrrelevant } from '#utils'
+import { diff, isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red, yellow } from 'chalk'
-import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js'
+import {
+  ApplicationCommandOptionType,
+  EmbedBuilder,
+  codeBlock,
+} from 'discord.js'
 import type {
   GuildMember,
   Interaction,
   Message,
   TextBasedChannel,
 } from 'discord.js'
+import { inspect } from 'util'
 
 class Logging extends Extension {
   @listener({ event: 'applicationCommandInvokeError', emitter: 'cts' })
@@ -40,17 +45,17 @@ class Logging extends Extension {
   }
 
   @listener({ event: 'messageUpdate' })
-  async messageEditLogger(before: Message, after: Message) {
-    if (before.content === after.content) return
-
+  async messageUpdateLogger(before: Message, after: Message) {
     if ((isIrrelevant(before) && isIrrelevant(after)) || !after.guild) return
 
+    const msgDiff = diff(after, before)
+
     this.logger.info(
-      `Edited: ${green(before.author.tag)} (${blue(
+      `Updated: ${green(before.author.tag)} (${blue(
         before.author.id
-      )}) - ${red.bold.strikethrough(before.content)} -> ${yellow.bold(
-        after.content
-      )}`
+      )}) - ${red.bold.strikethrough(
+        inspect(msgDiff[0], { colors: false })
+      )} -> ${yellow.bold(inspect(msgDiff[1], { colors: false }))}`
     )
 
     const channel = after.client.channels.cache.get(
@@ -60,18 +65,24 @@ class Logging extends Extension {
     await channel.send({
       embeds: [
         new EmbedBuilder()
-          .setTitle('메세지 수정됨')
+          .setTitle('메세지 업데이트됨')
           .setColor(COLORS.YELLOW)
           .setAuthor({
             name: `${after.author.tag} (${after.author.id})`,
             iconURL: after.author.displayAvatarURL(),
           })
-          .addFields(
+          .addFields([
             { name: '유저', value: `<@${after.author.id}>`, inline: true },
             { name: '채널', value: `<#${after.channelId}>`, inline: true },
-            { name: '수정 전', value: '```' + before.content + '```' },
-            { name: '수정 후', value: '```' + after.content + '```' }
-          ),
+            {
+              name: '이전',
+              value: codeBlock('ts', inspect(msgDiff[0])),
+            },
+            {
+              name: '현재',
+              value: codeBlock('ts', inspect(msgDiff[1])),
+            },
+          ]),
       ],
     })
   }

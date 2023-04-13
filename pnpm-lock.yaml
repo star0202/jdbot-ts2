@@ -5,6 +5,7 @@ specifiers:
   '@swc/core': 1.3.27
   '@trivago/prettier-plugin-sort-imports': ^4.1.1
   '@types/git-rev-sync': ^2.0.0
+  '@types/lodash': ^4.14.192
   '@types/node': 18.11.18
   '@typescript-eslint/eslint-plugin': ^5.55.0
   '@typescript-eslint/parser': ^5.55.0
@@ -17,6 +18,7 @@ specifiers:
   git-rev-sync: ^3.0.2
   inko: ^1.1.1
   jejudo: ^0.1.5
+  lodash: ^4.17.21
   neis.ts: ^0.3.2
   prettier: ^2.8.4
   ts-node: 10.9.1
@@ -34,6 +36,7 @@ dependencies:
   git-rev-sync: 3.0.2
   inko: 1.1.1
   jejudo: 0.1.5_yhuwmwozfcfugq7pt7q7izlkju
+  lodash: 4.17.21
   neis.ts: 0.3.2
   tslog: 4.8.2
 
@@ -41,6 +44,7 @@ devDependencies:
   '@swc/core': 1.3.27
   '@trivago/prettier-plugin-sort-imports': 4.1.1_prettier@2.8.4
   '@types/git-rev-sync': 2.0.0
+  '@types/lodash': 4.14.192
   '@types/node': 18.11.18
   '@typescript-eslint/eslint-plugin': 5.55.0_ielex76rf4brskgwktpsta2ypu
   '@typescript-eslint/parser': 5.55.0_eky3x5i7y7l4yby5jbcncpkdgu
@@ -481,6 +485,10 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+
+  /@types/lodash/4.14.192:
+    resolution: {integrity: sha512-km+Vyn3BYm5ytMO13k9KTp27O75rbQ0NFw+U//g+PX7VZyjCioXaRFisqSIJRECljcTv73G3i6BpglNGHgUQ5A==}
+    dev: true
 
   /@types/minimatch/3.0.5:
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
