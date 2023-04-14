@@ -71,7 +71,7 @@ class Logging extends Extension {
             name: `${after.author.tag} (${after.author.id})`,
             iconURL: after.author.displayAvatarURL(),
           })
-          .addFields([
+          .addFields(
             { name: '유저', value: `<@${after.author.id}>`, inline: true },
             { name: '채널', value: `<#${after.channelId}>`, inline: true },
             {
@@ -81,8 +81,8 @@ class Logging extends Extension {
             {
               name: '현재',
               value: codeBlock('ts', inspect(msgDiff[1])),
-            },
-          ]),
+            }
+          ),
       ],
     })
   }
