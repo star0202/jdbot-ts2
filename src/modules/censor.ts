@@ -106,7 +106,7 @@ class Censor extends Extension {
 
     if (isIrrelevant(after) || !after.guild) return
 
-    this.censor(after)
+    await this.censor(after)
   }
 
   @listener({ event: 'messageDelete' }) // because of this.censoredCache
