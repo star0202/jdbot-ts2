@@ -2,8 +2,8 @@ import { config } from '#config'
 import { COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
-import { EmbedBuilder } from 'discord.js'
 import type { Message, TextBasedChannel } from 'discord.js'
+import { EmbedBuilder } from 'discord.js'
 
 class Contact extends Extension {
   @listener({ event: 'messageCreate' })

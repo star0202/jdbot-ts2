@@ -3,8 +3,8 @@ import { CENSOR, COLORS } from '#constants'
 import { isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red } from 'chalk'
-import { EmbedBuilder, codeBlock } from 'discord.js'
 import type { Message, TextBasedChannel } from 'discord.js'
+import { EmbedBuilder, codeBlock } from 'discord.js'
 
 class Censor extends Extension {
   private censoredCache = new Set<string>()
