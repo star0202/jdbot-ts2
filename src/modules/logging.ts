@@ -10,7 +10,10 @@ import type {
   TextBasedChannel,
 } from 'discord.js'
 import {
+  ActionRowBuilder,
   ApplicationCommandOptionType,
+  ButtonBuilder,
+  ButtonStyle,
   EmbedBuilder,
   codeBlock,
 } from 'discord.js'
@@ -76,13 +79,21 @@ class Logging extends Extension {
             { name: '채널', value: `<#${after.channelId}>`, inline: true },
             {
               name: '이전',
-              value: codeBlock('ts', inspect(msgDiff[0])),
+              value: codeBlock('ts', inspect(msgDiff.original)),
             },
             {
               name: '현재',
               value: codeBlock('ts', inspect(msgDiff.updated)),
             }
           ),
+      ],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(
+          new ButtonBuilder()
+            .setStyle(ButtonStyle.Link)
+            .setURL(after.url)
+            .setLabel('메세지')
+        ),
       ],
     })
   }
