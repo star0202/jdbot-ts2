@@ -54,8 +54,8 @@ class Logging extends Extension {
       `Updated: ${green(before.author.tag)} (${blue(
         before.author.id
       )}) - ${red.bold.strikethrough(
-        inspect(msgDiff[0], { colors: false })
-      )} -> ${yellow.bold(inspect(msgDiff[1], { colors: false }))}`
+        inspect(msgDiff.original, { colors: false })
+      )} -> ${yellow.bold(inspect(msgDiff.updated, { colors: false }))}`
     )
 
     const channel = after.client.channels.cache.get(
@@ -80,7 +80,7 @@ class Logging extends Extension {
             },
             {
               name: '현재',
-              value: codeBlock('ts', inspect(msgDiff[1])),
+              value: codeBlock('ts', inspect(msgDiff.updated)),
             }
           ),
       ],
