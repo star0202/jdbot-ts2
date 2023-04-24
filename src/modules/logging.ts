@@ -1,5 +1,6 @@
 import { config } from '#config'
 import { COLORS } from '#constants'
+import type { JDBot } from '#structures'
 import { diff, isIrrelevant } from '#utils'
 import { Extension, listener } from '@pikokr/command.ts'
 import { blue, green, red, yellow } from 'chalk'
@@ -94,6 +95,40 @@ class Logging extends Extension {
             .setURL(after.url)
             .setLabel('메세지')
         ),
+      ],
+    })
+  }
+
+  @listener({ event: 'messageDelete' })
+  async messageDeleteLogger(msg: Message) {
+    if (isIrrelevant(msg)) return
+
+    if ((this.commandClient as JDBot).censoredCache.delete(msg.id)) return
+
+    this.logger.info(
+      `Deleted: ${green(msg.author.tag)} (${blue(
+        msg.author.id
+      )}) - ${red.bold.strikethrough(msg.content)}`
+    )
+
+    const channel = msg.client.channels.cache.get(
+      config.message_log_channel
+    ) as TextBasedChannel
+
+    await channel.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle('메세지 삭제됨')
+          .setColor(COLORS.RED)
+          .setAuthor({
+            name: `${msg.author.tag} (${msg.author.id})`,
+            iconURL: msg.author.displayAvatarURL(),
+          })
+          .addFields(
+            { name: '유저', value: `<@${msg.author.id}>`, inline: true },
+            { name: '채널', value: `<#${msg.channelId}>`, inline: true },
+            { name: '내용', value: codeBlock(msg.content) }
+          ),
       ],
     })
   }

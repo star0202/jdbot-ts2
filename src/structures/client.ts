@@ -11,6 +11,8 @@ import path from 'path'
 export class JDBot extends CommandClient {
   private jejudo: Jejudo | null = null
 
+  censoredCache = new Set<string>()
+
   constructor() {
     super(
       new Client({
