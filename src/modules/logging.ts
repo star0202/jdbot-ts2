@@ -163,6 +163,8 @@ class Logging extends Extension {
   async memberLeaveLogger(member: GuildMember) {
     if (member.user.bot) return
 
+    if ((this.commandClient as JDBot).bannedCache.delete(member.id)) return
+
     this.logger.info(
       `Left: ${green(member.user.tag)} (${blue(member.user.id)})`
     )

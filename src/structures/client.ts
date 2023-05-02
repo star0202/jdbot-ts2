@@ -12,6 +12,7 @@ export class JDBot extends CommandClient {
   private jejudo: Jejudo | null = null
 
   censoredCache = new Set<string>()
+  bannedCache = new Set<string>()
 
   constructor() {
     super(

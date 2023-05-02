@@ -7,6 +7,9 @@ type Config = {
   message_log_channel: string
   contact_channel: string
   member_log_channel: string
+  punish_log_channel: string
+  admin_role: string
+  punish_roles: string[]
 
   debug: boolean
 }
