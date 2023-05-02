@@ -54,7 +54,10 @@ class Punish extends Extension {
 
     let punish = 0
     member.roles.cache.forEach((role) => {
-      if (config.punish_roles.includes(role.id)) punish++
+      if (config.punish_roles.includes(role.id)) {
+        punish++
+        member.roles.remove(role.id)
+      }
     })
     punish += amount
 
