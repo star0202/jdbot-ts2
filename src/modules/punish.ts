@@ -71,7 +71,7 @@ class Punish extends Extension {
     })
 
     const channel = this.client.channels.cache.get(
-      config.message_log_channel
+      config.punish_log_channel
     ) as TextBasedChannel
 
     await channel.send({
