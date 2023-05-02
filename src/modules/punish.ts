@@ -19,7 +19,7 @@ class Punish extends Extension {
     name: '처벌',
     description: '[ADMIN] 유저를 처벌합니다.',
   })
-  async ban(
+  async punish(
     i: ChatInputCommandInteraction,
     @option({
       type: ApplicationCommandOptionType.User,
