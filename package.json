@@ -28,7 +28,7 @@
     "git-rev-sync": "^3.0.2",
     "jejudo": "^0.1.5",
     "lodash": "^4.17.21",
-    "neis.ts": "^0.3.2",
+    "neis.ts": "dev",
     "tslog": "^4.7.1"
   },
   "scripts": {

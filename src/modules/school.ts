@@ -9,25 +9,16 @@ import {
   ChatInputCommandInteraction,
   EmbedBuilder,
 } from 'discord.js'
-import type { School } from 'neis.ts'
 import { Neis } from 'neis.ts'
 
 class SchoolModule extends Extension {
   private readonly neis: Neis
-  private school?: School
 
   constructor() {
     super()
     this.neis = new Neis({
-      KEY: config.neis_key,
+      key: config.neis_key,
       logger: logger.getSubLogger({ name: 'Neis' }),
-    })
-  }
-
-  async setup() {
-    this.school = await this.neis.getSchoolOne({
-      ATPT_OFCDC_SC_CODE: 'B10',
-      SD_SCHUL_CODE: config.school_code,
     })
   }
 
@@ -51,8 +42,12 @@ class SchoolModule extends Extension {
     const now = dayjs(date)
 
     try {
-      const meal = (await this.school
-        ?.getMealOne({ MLSV_YMD: now.format('YYYYMMDD') })
+      const meal = (await this.neis
+        .getMealOne({
+          ATPT_OFCDC_SC_CODE: 'B10',
+          SD_SCHUL_CODE: config.school_code,
+          MLSV_YMD: now.format('YYYYMMDD'),
+        })
         .then((meal) =>
           meal.DDISH_NM.replace(/ {2,}(?!(\((\d{1,2}\.)+\)))/g, '').split(
             '<br/>'
@@ -82,6 +77,5 @@ class SchoolModule extends Extension {
 
 export const setup = async () => {
   const school = new SchoolModule()
-  await school.setup()
   return school
 }

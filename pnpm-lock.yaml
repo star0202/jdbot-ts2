@@ -18,7 +18,7 @@ specifiers:
   git-rev-sync: ^3.0.2
   jejudo: ^0.1.5
   lodash: ^4.17.21
-  neis.ts: ^0.3.2
+  neis.ts: dev
   prettier: ^2.8.4
   ts-node: 10.9.1
   tsconfig-paths: ^4.1.2
@@ -35,7 +35,7 @@ dependencies:
   git-rev-sync: 3.0.2
   jejudo: 0.1.5_yhuwmwozfcfugq7pt7q7izlkju
   lodash: 4.17.21
-  neis.ts: 0.3.2
+  neis.ts: 1.0.0-dev.16
   tslog: 4.8.2
 
 devDependencies:
@@ -1756,8 +1756,8 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  /neis.ts/0.3.2:
-    resolution: {integrity: sha512-u01l5rXxYQEol11BcFGtZuUmrjOB2NZT2l7CxTjr/k0qMP85S0Fzf+uyC3iubSYzwRfyBadwL2PIe95y+8JZ8g==}
+  /neis.ts/1.0.0-dev.16:
+    resolution: {integrity: sha512-3i7zEJXPdBMnTDXBLk3TuZFWX8oLE4DV9bZddAI6AbqswJh4atPX6k9mZJV74L7/qJfnGnhxwbJZSs9bl+sOwA==}
     dependencies:
       axios: 1.3.4
     optionalDependencies:
