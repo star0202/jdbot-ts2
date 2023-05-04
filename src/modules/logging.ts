@@ -127,7 +127,7 @@ class Logging extends Extension {
           .addFields(
             { name: '유저', value: `<@${msg.author.id}>`, inline: true },
             { name: '채널', value: `<#${msg.channelId}>`, inline: true },
-            { name: '내용', value: codeBlock(msg.content) }
+            { name: 'Object', value: codeBlock('ts', inspect(msg.toJSON())) }
           ),
       ],
     })
