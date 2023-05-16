@@ -37,5 +37,5 @@
     "start": "node dist",
     "lint": "eslint src --ignore-path .gitignore"
   },
-  "packageManager": "pnpm@7.30.0"
+  "packageManager": "pnpm@7.32.4"
 }
