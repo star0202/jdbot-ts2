@@ -19,6 +19,6 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Install Dependencies
-        run: pnpm i
+        run: pnpm i --frozen-lockfile
       - name: Run lint
         run: pnpm run lint
