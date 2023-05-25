@@ -3,7 +3,7 @@ import { VERSION } from '#constants'
 import { logger } from '#utils'
 import { CommandClient } from '@pikokr/command.ts'
 import { green } from 'chalk'
-import { Client, Partials } from 'discord.js'
+import { ActivityType, Client, Partials } from 'discord.js'
 import { short } from 'git-rev-sync'
 import { Jejudo } from 'jejudo'
 import path from 'path'
@@ -57,10 +57,14 @@ export class JDBot extends CommandClient {
       this.jejudo?.handleInteraction(i)
     })
 
-    this.discord.user?.setActivity(
-      config.debug ? `Testing` : `문의는 DM으로! | v${VERSION} (${short()})`
-    )
-    this.discord.user?.setStatus(config.debug ? 'idle' : 'online')
+    this.discord.user?.setPresence({
+      activities: [
+        {
+          name: `문의는 DM으로! | ${VERSION} (${short()})`,
+          type: ActivityType.Playing,
+        },
+      ],
+    })
 
     this.logger.info(`Logged in as: ${green(this.discord.user?.tag)}`)
 
