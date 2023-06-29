@@ -9,7 +9,7 @@ specifiers:
   '@types/node': 18.16.13
   '@typescript-eslint/eslint-plugin': ^5.55.0
   '@typescript-eslint/parser': ^5.55.0
-  chalk: 4.1.2
+  chalk: 5.3.0
   dayjs: ^1.11.7
   discord.js: ^14.7.1
   eslint: ^8.36.0
@@ -29,13 +29,13 @@ specifiers:
 
 dependencies:
   '@pikokr/command.ts': 5.5.0_mhiut35je56qprwuj4kpcf5dgm
-  chalk: 4.1.2
+  chalk: 5.3.0
   dayjs: 1.11.7
   discord.js: 14.8.0
   git-rev-sync: 3.0.2
   jejudo: 0.1.5_yhuwmwozfcfugq7pt7q7izlkju
   lodash: 4.17.21
-  neis.ts: 1.0.0-dev.20
+  neis.ts: 1.2.1-dev.2
   tslog: 4.8.2
 
 devDependencies:
@@ -768,6 +768,11 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  /chalk/5.3.0:
+    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
 
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -1756,8 +1761,8 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  /neis.ts/1.0.0-dev.20:
-    resolution: {integrity: sha512-DulZDGsF/4i9E0bU2xw3ZxfaaX4BcGNPtqXaBUNzZ+vJopRP4g4LetkCL4wgbYXNVyOw7v31wMe4wbQ0cB43mw==}
+  /neis.ts/1.2.1-dev.2:
+    resolution: {integrity: sha512-fBlHRWcL0tIliM5CIR2gcKm2VK57r8tM8ftLzC+ERqYNepTAq2cJPA3ScKkbFAeELMvjZ5XtKkgRkfeidJUvQA==}
     dependencies:
       axios: 1.3.4
     optionalDependencies:
